@@ -1,0 +1,6 @@
+{
+  "name": "Balachar S Raichur — Pooja & Vedic Astrology",
+  "description": "Traditional Vedic Pooja services and authentic Astrology consultations by Balachar S Raichur. Book online or at-home rituals with integrated Razorpay checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

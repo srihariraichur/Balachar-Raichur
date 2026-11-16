@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- =====================================================================
+       PAGE TITLE & SEO METADATA
+       Edit the title and description below if you customize the site name.
+       ===================================================================== -->
+  <title>Balachar S Raichur — Pooja &amp; Vedic Astrology Services</title>
+  <meta name="description" content="Traditional Vedic Pooja services and authentic Astrology consultations by Balachar S Raichur. Book online or at-home rituals with integrated Razorpay checkout." />
+  <meta property="og:title" content="Balachar S Raichur — Pooja &amp; Vedic Astrology Services" />
+  <meta property="og:description" content="Traditional Vedic Pooja services and authentic Astrology consultations by Balachar S Raichur." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- =====================================================================
+       GOOGLE FONTS (Lora for headings, Poppins for clean readable body)
+       ===================================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- =====================================================================
+       RAZORPAY CHECKOUT SDK
+       Supports UPI, Debit/Credit Cards, Net Banking, and Wallets in India.
+       ===================================================================== -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+
+  <style>
+    /* ===================================================================
+       1. DESIGN TOKENS & SPIRITUAL COLOR PALETTE
+       60% Warm Cream Canvas · 30% Ivory Structural Surfaces · 10% Saffron
+       =================================================================== */
+    :root {
+      --bg-cream: #FBF7F0;
+      --bg-sand: #F3EAD9;
+      --surface-card: #FFFDF9;
+      --border-warm: #E5D7C3;
+
+      --maroon-deep: #5C1622;
+      --maroon-muted: #7B2A36;
+
+      --saffron: #B84B0E;       /* High-contrast saffron-orange for buttons/CTAs */
+      --saffron-hover: #993C09;
+      --saffron-soft: #E07A22;  /* Decorative accents & sacred line art */
+
+      --text-primary: #2A1F1C;
+      --text-secondary: #5E4E47;
+      --text-muted: #78665E;
+
+      --success-bg: #EEF6EE;
+      --success-border: #B5D6B7;
+      --success-text: #1F5725;
+
+      --error-bg: #FDF0EE;
+      --error-border: #E8B9B2;
+      --error-text: #8C2318;
+
+      --font-display: 'Lora', Georgia, serif;
+      --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --max-width: 1120px;
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ===================================================================
+       2. BASE RESET & ACCESSIBILITY
+       =================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-cream);
+      color: var(--text-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      color: var(--maroon-deep);
+      line-height: 1.25;
+      text-wrap: balance;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--saffron);
+      outline-offset: 2px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: 1.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding-inline: 2rem;
+      }
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ===================================================================
+       3. HEADER / NAVIGATION (Sticky, compact, single-row 3-zone layout)
+       =================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(251, 247, 240, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      min-height: 64px;
+    }
+
+    .brand-mark {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--maroon-deep);
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      padding-block: 0.25rem;
+      border-bottom: 2px solid transparent;
+      transition: color var(--transition), border-color var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--maroon-deep);
+      border-bottom-color: var(--saffron-soft);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 44px;
+      padding: 0.625rem 1.375rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background-color: var(--saffron);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--saffron-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--surface-card);
+      color: var(--maroon-deep);
+      border-color: var(--border-warm);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-sand);
+      border-color: var(--maroon-muted);
+    }
+
+    .btn-header {
+      min-height: 40px;
+      padding: 0.45rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .mobile-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      color: var(--maroon-deep);
+      cursor: pointer;
+    }
+
+    .mobile-nav {
+      display: none;
+      border-top: 1px solid var(--border-warm);
+      background-color: var(--surface-card);
+      padding: 0.75rem 1.25rem 1rem;
+    }
+
+    .mobile-nav.is-open {
+      display: block;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 0.65rem 0;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(229, 215, 195, 0.5);
+    }
+
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+      .mobile-menu-btn,
+      .mobile-nav {
+        display: none !important;
+      }
+    }
+
+    /* ===================================================================
+       4. HERO SECTION
+       =================================================================== */
+    .hero {
+      padding-block: 3.5rem 4rem;
+      border-bottom: 1px solid var(--border-warm);
+      background: linear-gradient(180deg, var(--bg-cream) 0%, #F7EFE1 100%);
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        padding-block: 5rem 5.5rem;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 3.5rem;
+      }
+    }
+
+    .hero-kicker {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--saffron);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title {
+      font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      max-width: 58ch;
+      margin-bottom: 2rem;
+    }
+
+    .hero-artwork {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--surface-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .hero-artwork svg {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+      display: block;
+    }
+
+    /* ===================================================================
+       5. SHARED SECTION STYLING
+       =================================================================== */
+    section {
+      padding-block: 3.75rem;
+      scroll-margin-top: 72px;
+    }
+
+    @media (min-width: 768px) {
+      section {
+        padding-block: 4.75rem;
+      }
+    }
+
+    .section-header {
+      max-width: 64ch;
+      margin-bottom: 2.25rem;
+    }
+
+    .section-kicker {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--saffron);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.625rem, 3vw, 2.25rem);
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+    }
+
+    .section-lead {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* ===================================================================
+       6. ABOUT SECTION
+       =================================================================== */
+    .about-section {
+      background-color: var(--surface-card);
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .about-content {
+      max-width: 72ch;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: var(--text-secondary);
+      font-size: 1.03125rem;
+    }
+
+    .about-highlights {
+      margin-top: 0.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-warm);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      color: var(--maroon-deep);
+      font-weight: 500;
+    }
+
+    /* ===================================================================
+       7. SERVICES SECTION
+       =================================================================== */
+    .services-section {
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .service-group + .service-group {
+      margin-top: 3rem;
+    }
+
+    .service-group-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-warm);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .service-group-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .services-grid-pooja {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .services-grid-astrology {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .service-card {
+      background-color: var(--surface-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .service-card:hover {
+      border-color: var(--saffron-soft);
+    }
+
+    .service-category-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .service-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-desc {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+
+    .service-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(229, 215, 195, 0.7);
+    }
+
+    .service-fee {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--maroon-deep);
+    }
+
+    .service-fee-note {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .btn-card {
+      min-height: 40px;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.875rem;
+    }
+
+    /* ===================================================================
+       8. BOOKING FORM & PAYMENT SECTION
+       =================================================================== */
+    .booking-section {
+      background-color: var(--surface-card);
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (min-width: 960px) {
+      .booking-layout {
+        grid-template-columns: 1.25fr 0.75fr;
+      }
+    }
+
+    .booking-form {
+      background-color: var(--bg-cream);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .booking-form {
+        padding: 2rem;
+      }
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
+    }
+
+    @media (min-width: 640px) {
+      .form-grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-field label,
+    .field-legend {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--maroon-deep);
+    }
+
+    .required-mark {
+      color: var(--saffron);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 0.625rem 0.85rem;
+      background-color: var(--surface-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      transition: border-color var(--transition);
+    }
+
+    .form-textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--saffron);
+    }
+
+    .mode-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 480px) {
+      .mode-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .mode-option {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 44px;
+      padding: 0.6rem 0.9rem;
+      background-color: var(--surface-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: border-color var(--transition), background-color var(--transition);
+    }
+
+    .mode-option:has(input:checked) {
+      border-color: var(--saffron);
+      background-color: #FDF3E7;
+    }
+
+    .mode-option input {
+      accent-color: var(--saffron);
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+    }
+
+    .form-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .form-feedback {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+      display: none;
+    }
+
+    .form-feedback.is-visible {
+      display: block;
+    }
+
+    .form-feedback.is-success {
+      background-color: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .form-feedback.is-error {
+      background-color: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: var(--error-text);
+    }
+
+    /* Payment Box */
+    .payment-card {
+      background-color: var(--bg-cream);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .payment-card {
+        padding: 2rem;
+      }
+    }
+
+    .payment-card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .payment-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .payment-summary {
+      background-color: var(--surface-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .summary-label {
+      color: var(--text-muted);
+    }
+
+    .summary-value {
+      font-weight: 500;
+      color: var(--text-primary);
+      text-align: right;
+    }
+
+    .summary-total {
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--border-warm);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--maroon-deep);
+    }
+
+    .payment-methods-note {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: 0.85rem;
+      text-align: center;
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    .payment-status-box {
+      margin-top: 1rem;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      display: none;
+    }
+
+    .payment-status-box.is-visible {
+      display: block;
+    }
+
+    .payment-status-box.is-info {
+      background-color: #FDF5EA;
+      border: 1px solid var(--border-warm);
+      color: var(--text-primary);
+    }
+
+    .payment-status-box.is-success {
+      background-color: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    /* ===================================================================
+       9. CONTACT & FOOTER
+       =================================================================== */
+    .contact-section {
+      background-color: var(--bg-sand);
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .contact-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .contact-card {
+      background-color: var(--surface-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .contact-label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .contact-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--maroon-deep);
+      word-break: break-word;
+    }
+
+    .btn-whatsapp {
+      background-color: #1F6E3D;
+      color: #FFFFFF;
+      min-height: 42px;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #185730;
+    }
+
+    .site-footer {
+      background-color: var(--maroon-deep);
+      color: #F7EFE1;
+      padding-block: 1.75rem;
+      font-size: 0.875rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .footer-links a {
+      color: #EADBC8;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       SECTION 1: HEADER / NAVIGATION
+       ===================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Brand wordmark (Edit name here if needed) -->
+      <a href="#home" class="brand-mark">Balachar S Raichur</a>
+
+      <!-- Desktop Anchor Links -->
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#book-online">Book Online</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Single Primary Action + Mobile Menu Toggle -->
+      <div class="header-actions">
+        <a href="#book-online" class="btn btn-primary btn-header">Book Now</a>
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobileMenuToggle"
+          aria-expanded="false"
+          aria-controls="mobileNav"
+          aria-label="Toggle navigation menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="7" x2="21" y2="7" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="17" x2="21" y2="17" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#book-online">Book Online</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===================================================================
+         SECTION 2: HERO
+         =================================================================== -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="hero-kicker">Vedic Pooja &amp; Jyotish Consultation</p>
+          <h1 class="hero-title">Balachar S Raichur</h1>
+          <p class="hero-tagline">
+            Traditional Vedic Pooja rituals performed with scriptural authenticity, alongside personal Jyotish (astrology) guidance for clarity, peace, and auspicious beginnings.
+          </p>
+          <a href="#book-online" class="btn btn-primary">Book Now</a>
+        </div>
+
+        <!-- Subtle Sacred Mandala & Deepam Vector Motif (Self-contained SVG) -->
+        <div class="hero-artwork" aria-hidden="true">
+          <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="120" cy="120" r="106" stroke="#E5D7C3" stroke-width="1.5" />
+            <circle cx="120" cy="120" r="92" stroke="#E07A22" stroke-width="1" stroke-dasharray="4 6" />
+            <circle cx="120" cy="120" r="72" stroke="#5C1622" stroke-width="1.5" />
+            <!-- Sacred 8-petal lotus geometry -->
+            <path d="M120 34C132 58 132 82 120 100C108 82 108 58 120 34Z" stroke="#E07A22" stroke-width="1.5" fill="#FDF3E7" />
+            <path d="M120 206C132 182 132 158 120 140C108 158 108 182 120 206Z" stroke="#E07A22" stroke-width="1.5" fill="#FDF3E7" />
+            <path d="M34 120C58 108 82 108 100 120C82 132 58 132 34 120Z" stroke="#E07A22" stroke-width="1.5" fill="#FDF3E7" />
+            <path d="M206 120C182 108 158 108 140 120C158 132 182 132 206 120Z" stroke="#E07A22" stroke-width="1.5" fill="#FDF3E7" />
+            <path d="M59 59C82 67 98 83 106 106C83 98 67 82 59 59Z" stroke="#7B2A36" stroke-width="1.3" />
+            <path d="M181 59C158 67 142 83 134 106C157 98 173 82 181 59Z" stroke="#7B2A36" stroke-width="1.3" />
+            <path d="M59 181C82 173 98 157 106 134C83 142 67 158 59 181Z" stroke="#7B2A36" stroke-width="1.3" />
+            <path d="M181 181C158 173 142 157 134 134C157 142 173 158 181 181Z" stroke="#7B2A36" stroke-width="1.3" />
+            <!-- Center Deepam Flame -->
+            <circle cx="120" cy="120" r="24" fill="#FFFDF9" stroke="#5C1622" stroke-width="1.5" />
+            <path d="M120 103C126 112 128 119 124 125C122 128 118 128 116 125C112 119 114 112 120 103Z" fill="#B84B0E" />
+            <path d="M107 128H133C131 134 126 137 120 137C114 137 109 134 107 128Z" fill="#5C1622" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 3: ABOUT
+         Replace the placeholder biography lines below with your own details.
+         =================================================================== -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-kicker">About</p>
+          <h2 class="section-title">Rooted in Vedic Tradition &amp; Trusted Guidance</h2>
+        </div>
+
+        <div class="about-content">
+          <!-- PLACEHOLDER BIO: Edit these 2–3 lines with Balachar S Raichur's actual background -->
+          <p>
+            Balachar S Raichur brings <strong>[Placeholder: 18+ years]</strong> of dedicated experience in performing traditional Vedic Poojas, Homas, and Shanti rituals strictly according to classical shastras.
+          </p>
+          <p>
+            Trained in authentic Panchanga calculations and Parashari Jyotish, he offers thoughtful horoscope readings, marriage compatibility analysis, and practical remedial counsel for families across India and abroad.
+          </p>
+          <p>
+            Every ritual and consultation is conducted with clear explanations, transparent samagri guidance, and personal attention—either at your home or via live online video call.
+          </p>
+
+          <div class="about-highlights">
+            <span>[Placeholder: Traditional Vedic Lineage]</span>
+            <span aria-hidden="true">·</span>
+            <span>[Placeholder: Languages — Kannada, Sanskrit, Hindi, English]</span>
+            <span aria-hidden="true">·</span>
+            <span>Online &amp; At-Home Services</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 4: SERVICES
+         Update fees, descriptions, or service names directly in the cards
+         AND in the SERVICE_CATALOG object in the JavaScript at the bottom.
+         =================================================================== -->
+    <section id="services" class="services-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-kicker">Services &amp; Dakshina</p>
+          <h2 class="section-title">Pooja Rituals &amp; Astrology Consultations</h2>
+          <p class="section-lead">
+            Select any service below to pre-fill your booking request and proceed to payment. Placeholder fees are shown and can be customized anytime.
+          </p>
+        </div>
+
+        <!-- Group A: Pooja Services -->
+        <div class="service-group">
+          <h3 class="service-group-title">
+            <span>Pooja Services</span>
+            <span class="service-group-subtitle">Performed at home or guided online</span>
+          </h3>
+
+          <div class="services-grid services-grid-pooja">
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Pooja Service</p>
+                <h4 class="service-name">Griha Pravesh</h4>
+                <p class="service-desc">
+                  Auspicious housewarming ceremony with Ganapathi Pooja, Punyahavachanam, and Vastu Shanti for harmony in your new home.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;5,100
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Griha Pravesh">
+                  Select
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Pooja Service</p>
+                <h4 class="service-name">Satyanarayana Pooja</h4>
+                <p class="service-desc">
+                  Traditional Sankalpa, Kalasha Sthapana, and complete Satyanarayana Katha recitation for family well-being and gratitude.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;3,100
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Satyanarayana Pooja">
+                  Select
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Pooja Service</p>
+                <h4 class="service-name">Homa / Havan</h4>
+                <p class="service-desc">
+                  Sacred Vedic fire offerings including Ganapathi Homa, Navagraha Homa, Ayushya Homa, and Rudra Homa with authentic mantras.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;4,500
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Homa / Havan">
+                  Select
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Pooja Service</p>
+                <h4 class="service-name">Shanti Poojas</h4>
+                <p class="service-desc">
+                  Navagraha Shanti, Janma Nakshatra Shanti, and peaceful remedial rituals performed with care for life transitions.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;3,500
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Shanti Poojas">
+                  Select
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Pooja Service</p>
+                <h4 class="service-name">Festival Poojas</h4>
+                <p class="service-desc">
+                  Guided rituals for Ganesh Chaturthi, Varalakshmi Vrata, Navaratri, Lakshmi Pooja, and other auspicious seasonal festivals.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;2,500
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Festival Poojas">
+                  Select
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Group B: Astrology Services -->
+        <div class="service-group">
+          <h3 class="service-group-title">
+            <span>Astrology Services</span>
+            <span class="service-group-subtitle">Available via Online Video Call or in person</span>
+          </h3>
+
+          <div class="services-grid services-grid-astrology">
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Astrology Consultation</p>
+                <h4 class="service-name">Kundali / Horoscope Reading</h4>
+                <p class="service-desc">
+                  Comprehensive birth-chart reading covering planetary placements, Dasha cycles, career, health, and upcoming transit guidance.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;1,100
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Kundali / Horoscope Reading">
+                  Select
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Astrology Consultation</p>
+                <h4 class="service-name">Kundali Matching</h4>
+                <p class="service-desc">
+                  Detailed Vivaha compatibility assessment including Ashtakoota Guna Milan, Manglik evaluation, and Dasha harmony.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;1,500
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Kundali Matching">
+                  Select
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Astrology Consultation</p>
+                <h4 class="service-name">Muhurta Selection</h4>
+                <p class="service-desc">
+                  Calculation of auspicious dates and timings for weddings, Griha Pravesh, naming ceremonies, or business openings.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;1,100
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Muhurta Selection">
+                  Select
+                </button>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <div>
+                <p class="service-category-label">Astrology Consultation</p>
+                <h4 class="service-name">Dosha Remedies</h4>
+                <p class="service-desc">
+                  Honest, traditional Vedic remedies, japa recommendations, and spiritual guidance for Kuja, Kaal Sarp, or Pitru Doshas.
+                </p>
+              </div>
+              <div class="service-footer">
+                <div class="service-fee tabular-nums">
+                  &#8377;1,500
+                  <span class="service-fee-note">Placeholder fee</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-card select-service-btn" data-service="Dosha Remedies">
+                  Select
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 5 & 6: ONLINE SERVICES, BOOKING & RAZORPAY PAYMENT GATEWAY
+         =================================================================== -->
+    <section id="book-online" class="booking-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-kicker">Online Services &amp; Booking</p>
+          <h2 class="section-title">Book a Pooja or Consultation</h2>
+          <p class="section-lead">
+            Submit your preferred date, time, and mode below. After confirming your booking details, proceed directly to the Pay Now section.
+          </p>
+        </div>
+
+        <div class="booking-layout">
+          <!-- Booking Form -->
+          <form id="bookingForm" class="booking-form" novalidate>
+            <div class="form-grid">
+              <div class="form-grid form-grid-2">
+                <div class="form-field">
+                  <label for="customerName">Full Name <span class="required-mark">*</span></label>
+                  <input type="text" id="customerName" name="name" class="form-input" placeholder="e.g., Ramesh Kulkarni" required />
+                </div>
+
+                <div class="form-field">
+                  <label for="customerPhone">Phone Number <span class="required-mark">*</span></label>
+                  <input type="tel" id="customerPhone" name="phone" class="form-input" placeholder="e.g., +91 98765 43210" required />
+                </div>
+              </div>
+
+              <div class="form-grid form-grid-2">
+                <div class="form-field">
+                  <label for="customerEmail">Email Address <span class="required-mark">*</span></label>
+                  <input type="email" id="customerEmail" name="email" class="form-input" placeholder="you@example.com" required />
+                </div>
+
+                <div class="form-field">
+                  <label for="serviceSelect">Select Service <span class="required-mark">*</span></label>
+                  <select id="serviceSelect" name="service" class="form-select" required>
+                    <optgroup label="Pooja Services">
+                      <option value="Griha Pravesh">Griha Pravesh (&#8377;5,100)</option>
+                      <option value="Satyanarayana Pooja">Satyanarayana Pooja (&#8377;3,100)</option>
+                      <option value="Homa / Havan">Homa / Havan (&#8377;4,500)</option>
+                      <option value="Shanti Poojas">Shanti Poojas (&#8377;3,500)</option>
+                      <option value="Festival Poojas">Festival Poojas (&#8377;2,500)</option>
+                    </optgroup>
+                    <optgroup label="Astrology Services">
+                      <option value="Kundali / Horoscope Reading">Kundali / Horoscope Reading (&#8377;1,100)</option>
+                      <option value="Kundali Matching">Kundali Matching (&#8377;1,500)</option>
+                      <option value="Muhurta Selection">Muhurta Selection (&#8377;1,100)</option>
+                      <option value="Dosha Remedies">Dosha Remedies (&#8377;1,500)</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="preferredDateTime">Preferred Date and Time <span class="required-mark">*</span></label>
+                <input type="datetime-local" id="preferredDateTime" name="datetime" class="form-input" required />
+              </div>
+
+              <div class="form-field">
+                <span class="field-legend">Consultation / Ritual Mode <span class="required-mark">*</span></span>
+                <div class="mode-options">
+                  <label class="mode-option">
+                    <input type="radio" name="mode" value="Online video call" checked />
+                    <span>Online video call</span>
+                  </label>
+                  <label class="mode-option">
+                    <input type="radio" name="mode" value="At home" />
+                    <span>At home</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="customerMessage">Message (Optional)</label>
+                <textarea
+                  id="customerMessage"
+                  name="message"
+                  class="form-textarea"
+                  placeholder="Share birth details (for Astrology), home address/locality (for At-home Pooja), or any special requests."
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Confirm Booking &amp; Proceed to Payment</button>
+            </div>
+
+            <!-- Inline Booking Confirmation / Error Message -->
+            <div id="bookingFeedback" class="form-feedback" role="status" aria-live="polite"></div>
+          </form>
+
+          <!-- ===============================================================
+               SECTION 6: PAYMENT GATEWAY (RAZORPAY CHECKOUT)
+               =============================================================== -->
+          <aside id="payment" class="payment-card" aria-labelledby="paymentHeading">
+            <h3 id="paymentHeading" class="payment-card-title">Pay Now</h3>
+            <p class="payment-subtitle">
+              Complete your Dakshina / consultation fee securely via Razorpay.
+            </p>
+
+            <div class="payment-summary">
+              <div class="summary-row">
+                <span class="summary-label">Service</span>
+                <span class="summary-value" id="summaryService">Griha Pravesh</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Mode</span>
+                <span class="summary-value" id="summaryMode">Online video call</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Booking For</span>
+                <span class="summary-value" id="summaryCustomer">Not submitted yet</span>
+              </div>
+              <div class="summary-row summary-total">
+                <span>Total Payable</span>
+                <span class="tabular-nums" id="summaryAmount">&#8377;5,100</span>
+              </div>
+            </div>
+
+            <button type="button" id="payNowBtn" class="btn btn-primary btn-full">
+              Pay Now with Razorpay
+            </button>
+
+            <p class="payment-methods-note">
+              Supports UPI (GPay, PhonePe, Paytm), Cards &amp; Net Banking in India
+            </p>
+
+            <!-- Payment Status / Test-Mode Notice -->
+            <div id="paymentStatus" class="payment-status-box" role="status" aria-live="polite"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 7: CONTACT
+         Replace all placeholder phone, WhatsApp, email, and city values.
+         =================================================================== -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-kicker">Contact</p>
+          <h2 class="section-title">Reach Out Directly</h2>
+          <p class="section-lead">
+            For urgent Muhurta inquiries, Samagri lists, or custom ritual requests, connect directly via phone, WhatsApp, or email.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div>
+              <p class="contact-label">Phone</p>
+              <!-- PLACEHOLDER PHONE: Update tel: link and visible number -->
+              <p class="contact-value tabular-nums">
+                <a href="tel:+919876543210">+91 98765 43210</a>
+              </p>
+            </div>
+            <p class="service-desc">Call between 8:00 AM – 8:00 PM IST</p>
+          </div>
+
+          <div class="contact-card">
+            <div>
+              <p class="contact-label">WhatsApp</p>
+              <p class="contact-value">Quick Booking &amp; Queries</p>
+            </div>
+            <!-- PLACEHOLDER WHATSAPP: Replace 919876543210 with your WhatsApp number (country code + number, no + sign) -->
+            <a
+              href="https://wa.me/919876543210?text=Namaste%20Balachar%20S%20Raichur%2C%20I%20would%20like%20to%20inquire%20about%20a%20Pooja%20%2F%20Astrology%20service."
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-whatsapp"
+            >
+              Chat on WhatsApp
+            </a>
+          </div>
+
+          <div class="contact-card">
+            <div>
+              <p class="contact-label">Email</p>
+              <!-- PLACEHOLDER EMAIL: Update mailto: link and visible email -->
+              <p class="contact-value">
+                <a href="mailto:contact@balacharraichur.example">contact@balacharraichur.example</a>
+              </p>
+            </div>
+            <p class="service-desc">Share birth details or horoscopes</p>
+          </div>
+
+          <div class="contact-card">
+            <div>
+              <p class="contact-label">City &amp; Availability</p>
+              <!-- PLACEHOLDER CITY: Replace with your actual city/state -->
+              <p class="contact-value">Bengaluru, Karnataka</p>
+            </div>
+            <p class="service-desc">At-home local visits &amp; Online worldwide</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="copyrightYear">2026</span> Balachar S Raichur. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#book-online">Book Online</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       MINIMAL JAVASCRIPT (No Frameworks)
+       1. Service fee catalog (edit fees here to match your cards)
+       2. Mobile navigation toggle
+       3. Service card selection -> Booking form & Payment summary sync
+       4. Booking form validation & confirmation
+       5. Razorpay Checkout integration
+       ===================================================================== -->
+  <script>
+    (function () {
+      "use strict";
+
+      /* -------------------------------------------------------------------
+         1. CONFIGURATION & PLACEHOLDERS (EDIT THESE VALUES)
+         ------------------------------------------------------------------- */
+
+      /**
+       * RAZORPAY KEY PLACEHOLDER:
+       * Replace "YOUR_RAZORPAY_KEY_ID" with your actual Razorpay Key ID
+       * from the Razorpay Dashboard (Settings -> API Keys), e.g. "rzp_test_..."
+       * for testing or "rzp_live_..." for live payments.
+       *
+       * IMPORTANT PRODUCTION SECURITY NOTE:
+       * Never place your Razorpay Key Secret in this HTML file.
+       * In production, create the Razorpay Order securely on your backend
+       * server (using the Orders API), pass the returned `order_id` into
+       * the `options` object below, and verify the payment signature
+       * (`razorpay_signature`) on your server after payment succeeds.
+       */
+      var RAZORPAY_KEY_ID = "YOUR_RAZORPAY_KEY_ID";
+
+      /**
+       * SERVICE FEE CATALOG (in Indian Rupees - INR)
+       * Update amounts here whenever you edit the placeholder fees on the cards.
+       */
+      var SERVICE_FEES = {
+        "Griha Pravesh": 5100,
+        "Satyanarayana Pooja": 3100,
+        "Homa / Havan": 4500,
+        "Shanti Poojas": 3500,
+        "Festival Poojas": 2500,
+        "Kundali / Horoscope Reading": 1100,
+        "Kundali Matching": 1500,
+        "Muhurta Selection": 1100,
+        "Dosha Remedies": 1500
+      };
+
+      /* -------------------------------------------------------------------
+         2. DOM REFERENCES & STATE
+         ------------------------------------------------------------------- */
+      var mobileMenuToggle = document.getElementById("mobileMenuToggle");
+      var mobileNav = document.getElementById("mobileNav");
+
+      var bookingForm = document.getElementById("bookingForm");
+      var nameInput = document.getElementById("customerName");
+      var phoneInput = document.getElementById("customerPhone");
+      var emailInput = document.getElementById("customerEmail");
+      var serviceSelect = document.getElementById("serviceSelect");
+      var dateTimeInput = document.getElementById("preferredDateTime");
+      var messageInput = document.getElementById("customerMessage");
+      var bookingFeedback = document.getElementById("bookingFeedback");
+
+      var summaryService = document.getElementById("summaryService");
+      var summaryMode = document.getElementById("summaryMode");
+      var summaryCustomer = document.getElementById("summaryCustomer");
+      var summaryAmount = document.getElementById("summaryAmount");
+      var payNowBtn = document.getElementById("payNowBtn");
+      var paymentStatus = document.getElementById("paymentStatus");
+
+      var bookingState = {
+        submitted: false,
+        name: "",
+        phone: "",
+        email: "",
+        service: serviceSelect.value,
+        datetime: "",
+        mode: "Online video call",
+        message: ""
+      };
+
+      /* Set current year in footer */
+      var yearEl = document.getElementById("copyrightYear");
+      if (yearEl) {
+        yearEl.textContent = String(new Date().getFullYear());
+      }
+
+      /* Set sensible minimum date/time on the booking datetime picker (today) */
+      if (dateTimeInput) {
+        var now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        dateTimeInput.min = now.toISOString().slice(0, 16);
+      }
+
+      /* -------------------------------------------------------------------
+         3. MOBILE MENU TOGGLE
+         ------------------------------------------------------------------- */
+      if (mobileMenuToggle && mobileNav) {
+        mobileMenuToggle.addEventListener("click", function () {
+          var isOpen = mobileNav.classList.toggle("is-open");
+          mobileMenuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        mobileNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            mobileNav.classList.remove("is-open");
+            mobileMenuToggle.setAttribute("aria-expanded", "false");
+          });
+        });
+      }
+
+      /* -------------------------------------------------------------------
+         4. SYNC SERVICE SELECTION & PAYMENT SUMMARY
+         ------------------------------------------------------------------- */
+      function formatINR(amount) {
+        return "\u20B9" + Number(amount).toLocaleString("en-IN");
+      }
+
+      function getSelectedMode() {
+        var checked = bookingForm.querySelector('input[name="mode"]:checked');
+        return checked ? checked.value : "Online video call";
+      }
+
+      function updatePaymentSummary() {
+        var selectedService = serviceSelect.value;
+        var fee = SERVICE_FEES[selectedService] || 1100;
+        var mode = getSelectedMode();
+
+        bookingState.service = selectedService;
+        bookingState.mode = mode;
+
+        summaryService.textContent = selectedService;
+        summaryMode.textContent = mode;
+        summaryAmount.textContent = formatINR(fee);
+
+        if (bookingState.submitted && bookingState.name) {
+          summaryCustomer.textContent = bookingState.name;
+        } else {
+          summaryCustomer.textContent = "Not submitted yet";
+        }
+      }
+
+      /* Update summary when dropdown or mode changes */
+      serviceSelect.addEventListener("change", updatePaymentSummary);
+      bookingForm.querySelectorAll('input[name="mode"]').forEach(function (radio) {
+        radio.addEventListener("change", updatePaymentSummary);
+      });
+
+      /* Clicking "Select" on any Service Card pre-fills the form and scrolls to booking */
+      document.querySelectorAll(".select-service-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var serviceName = btn.getAttribute("data-service");
+          if (serviceName && SERVICE_FEES[serviceName]) {
+            serviceSelect.value = serviceName;
+            updatePaymentSummary();
+            document.getElementById("book-online").scrollIntoView({ behavior: "smooth" });
+            nameInput.focus({ preventScroll: true });
+          }
+        });
+      });
+
+      /* Initialize summary on page load */
+      updatePaymentSummary();
+
+      /* -------------------------------------------------------------------
+         5. BOOKING FORM SUBMISSION & VALIDATION
+         ------------------------------------------------------------------- */
+      function showBookingFeedback(type, htmlMessage) {
+        bookingFeedback.className = "form-feedback is-visible " + (type === "success" ? "is-success" : "is-error");
+        bookingFeedback.innerHTML = htmlMessage;
+      }
+
+      bookingForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var name = nameInput.value.trim();
+        var phone = phoneInput.value.trim();
+        var email = emailInput.value.trim();
+        var service = serviceSelect.value;
+        var datetime = dateTimeInput.value;
+        var mode = getSelectedMode();
+        var message = messageInput.value.trim();
+
+        /* Basic validation */
+        if (name.length < 2) {
+          showBookingFeedback("error", "Please enter your full name.");
+          nameInput.focus();
+          return;
+        }
+
+        var digitsOnly = phone.replace(/\D/g, "");
+        if (digitsOnly.length < 10) {
+          showBookingFeedback("error", "Please enter a valid 10-digit phone number.");
+          phoneInput.focus();
+          return;
+        }
+
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          showBookingFeedback("error", "Please enter a valid email address.");
+          emailInput.focus();
+          return;
+        }
+
+        if (!datetime) {
+          showBookingFeedback("error", "Please choose your preferred date and time.");
+          dateTimeInput.focus();
+          return;
+        }
+
+        /* Save confirmed booking details for Razorpay prefill */
+        bookingState = {
+          submitted: true,
+          name: name,
+          phone: phone,
+          email: email,
+          service: service,
+          datetime: datetime,
+          mode: mode,
+          message: message
+        };
+
+        updatePaymentSummary();
+
+        var formattedDate = new Date(datetime).toLocaleString("en-IN", {
+          dateStyle: "medium",
+          timeStyle: "short"
+        });
+
+        showBookingFeedback(
+          "success",
+          "<strong>Booking details saved!</strong> Thank you, " +
+            escapeHtml(name) +
+            ". Your request for <strong>" +
+            escapeHtml(service) +
+            "</strong> (" +
+            escapeHtml(mode) +
+            " on " +
+            escapeHtml(formattedDate) +
+            ") is ready. Please complete your payment in the <strong>Pay Now</strong> section."
+        );
+
+        /* Smoothly bring the Pay Now section into view on mobile/tablet */
+        document.getElementById("payment").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+
+      /* -------------------------------------------------------------------
+         6. RAZORPAY CHECKOUT INTEGRATION
+         ------------------------------------------------------------------- */
+      function showPaymentStatus(type, htmlMessage) {
+        paymentStatus.className = "payment-status-box is-visible " + (type === "success" ? "is-success" : "is-info");
+        paymentStatus.innerHTML = htmlMessage;
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      /**
+       * Opens Razorpay Checkout with the currently selected service fee.
+       * Production note: Fetch a server-generated `order_id` from your backend
+       * before invoking `new Razorpay(options).open()`, and verify the payment
+       * signature on the server inside the `handler` callback.
+       */
+      function openRazorpayCheckout() {
+        var selectedService = serviceSelect.value;
+        var amountInINR = SERVICE_FEES[selectedService] || 1100;
+        var amountInPaise = amountInINR * 100; // Razorpay expects amount in paise
+
+        var customerName = bookingState.name || nameInput.value.trim();
+        var customerEmail = bookingState.email || emailInput.value.trim();
+        var customerPhone = bookingState.phone || phoneInput.value.trim();
+
+        var options = {
+          key: RAZORPAY_KEY_ID,
+          amount: amountInPaise,
+          currency: "INR",
+          name: "Balachar S Raichur",
+          description: selectedService + " (" + getSelectedMode() + ")",
+          // order_id: "order_FROM_YOUR_BACKEND_SERVER", // Uncomment in production
+          prefill: {
+            name: customerName,
+            email: customerEmail,
+            contact: customerPhone
+          },
+          notes: {
+            service: selectedService,
+            mode: getSelectedMode(),
+            preferred_datetime: bookingState.datetime || dateTimeInput.value || "Not specified"
+          },
+          theme: {
+            color: "#B84B0E" // Matches the warm saffron accent
+          },
+          handler: function (response) {
+            /* In production, send response.razorpay_payment_id,
+               response.razorpay_order_id, and response.razorpay_signature
+               to your server for cryptographic verification. */
+            showPaymentStatus(
+              "success",
+              "<strong>Payment received!</strong> Reference ID: <code>" +
+                escapeHtml(response.razorpay_payment_id) +
+                "</code>. Balachar S Raichur will contact you shortly to confirm your session."
+            );
+          }
+        };
+
+        /* Guard for placeholder Key ID so you can preview the checkout setup cleanly */
+        if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "YOUR_RAZORPAY_KEY_ID") {
+          showPaymentStatus(
+            "info",
+            "<strong>Razorpay Placeholder Active:</strong> Replace <code>YOUR_RAZORPAY_KEY_ID</code> in <code>index.html</code> with your Razorpay Key ID to launch live UPI, Card &amp; Net Banking checkout for <strong>" +
+              escapeHtml(selectedService) +
+              " (" +
+              escapeHtml(formatINR(amountInINR)) +
+              ")</strong>."
+          );
+          return;
+        }
+
+        if (typeof window.Razorpay !== "function") {
+          showPaymentStatus(
+            "info",
+            "Razorpay Checkout script is still loading or blocked. Please check your internet connection and try again."
+          );
+          return;
+        }
+
+        var rzp = new window.Razorpay(options);
+        rzp.on("payment.failed", function (resp) {
+          var reason = (resp && resp.error && resp.error.description) ? resp.error.description : "Payment could not be completed.";
+          showPaymentStatus("info", "<strong>Payment Failed:</strong> " + escapeHtml(reason));
+        });
+        rzp.open();
+      }
+
+      payNowBtn.addEventListener("click", openRazorpayCheckout);
+    })();
+  </script>
+</body>
+</html>
